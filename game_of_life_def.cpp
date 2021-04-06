@@ -1,4 +1,3 @@
-
 #include "game_of_life.h"
 // game_of_life_def.cpp
 
