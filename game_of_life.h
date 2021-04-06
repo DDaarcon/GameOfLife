@@ -44,10 +44,11 @@ public:
 	Cell(const sf::Vector2f size_, States state_ = Dead);
 	
 	void setState(States);
-	States checkState() const;	// status życia komórki
+	States getState() const;	// status życia komórki
 
 	void increaseAliveNeighbors(int amount = 1) {aliveNeighbours += amount;}
-	void resetAliveNeighbours(int value = 0) {aliveNeighbours = value;} 
+	void resetAliveNeighbours(int value = 0) {aliveNeighbours = value;}
+	void resolveStateByRules();
 	
 	void setAbsolutePosition(const sf::Vector2f&);
 	void draw(sf::RenderWindow& w) const;
@@ -84,7 +85,7 @@ public:
 	int getSizeY() const;
 
 	void calculateStage(); // count alive neighbours of every cell
-	void applyCalculationsAndDraw();	// set state of every cell depending on number of alive neighbours
+	void applyCalculationsAndDraw(sf::RenderWindow&);	// set state of every cell depending on number of alive neighbours
 	
 	void draw(sf::RenderWindow&) const;
 };

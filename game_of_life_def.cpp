@@ -39,7 +39,7 @@ void Cell::setAbsolutePosition(const sf::Vector2f& vec_) {
 	rectangle.setPosition(vec_);
 }
 
-Cell::States Cell::checkState() const {
+Cell::States Cell::getState() const {
 	return state;
 }
 
@@ -52,6 +52,20 @@ void Cell::setState(States state_) {
 			setDead();
 			break;
 	}
+}
+
+void Cell::resolveStateByRules() {
+	if (state == States::Alive) {
+		if (!(aliveNeighbours == 2 || aliveNeighbours == 3)) {
+			setDead();
+		}
+	}
+	if (state == States::Dead) {
+		if (aliveNeighbours == 3) {
+			setAlive();
+		}
+	}
+	resetAliveNeighbours();
 }
 
 
@@ -141,7 +155,7 @@ Cell::States Stage::getCellState(const sf::Vector2i coord_) const{
 	Cell* cell = getCellAt(coord_);
 	if (cell == nullptr) throw "coordinates exceeded stage";
 	
-	return cell->checkState();
+	return cell->getState();
 }
 
 bool Stage::checkIfXInside(const int x) const {
@@ -215,10 +229,11 @@ void Stage::calculateStage() {
 	}
 }
 
-void Stage::applyCalculationsAndDraw() {
+void Stage::applyCalculationsAndDraw(sf::RenderWindow& w) {
 	for (int x = 0; x < sizeOfStage.x; x++) {
 		for (int y = 0; y < sizeOfStage.y; y++) {
-
+			cells[x][y].resolveStateByRules();
+			cells[x][y].draw(w);
 		}
 	}
 }
