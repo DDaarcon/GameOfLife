@@ -37,7 +37,7 @@ int main(){
 		testStage.calculateStage();
 		testStage.applyCalculationsAndDraw(window);
 
-		std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - startTime).count() << "milliseconds\n";
+		std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - startTime).count() << " milliseconds\n";
 
 		while (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - startTime).count() < 100) {}
 	}
