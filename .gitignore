@@ -1,3 +1,4 @@
 *.o
 game_of_life
 sfml-app
+.vscode/

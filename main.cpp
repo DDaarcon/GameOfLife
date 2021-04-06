@@ -12,13 +12,13 @@ int main(){
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), WINDOW_NAME);
 	window.setView(mainView);
 	
-	Stage testStage(Cell::States::Dead, sf::Vector2i(100, 100));
+	Stage testStage(Cell::States::Dead, sf::Vector2i(200, 200));
 	// testStage.makeLive(50, 50);
 	// testStage.makeLive(50, 51);
 	// testStage.makeLive(50, 52);
 	// testStage.makeLive(51, 51);
 	// testStage.makeLive(52, 51);
-	testStage.createRandomLife(10);
+	testStage.createRandomLife(5);
 	
 	while(window.isOpen()){
 		auto startTime = std::chrono::high_resolution_clock::now();
@@ -36,6 +36,8 @@ int main(){
 		// updateStageCells(testStage);
 		testStage.calculateStage();
 		testStage.applyCalculationsAndDraw(window);
+
+		std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - startTime).count() << "milliseconds\n";
 
 		while (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - startTime).count() < 100) {}
 	}
