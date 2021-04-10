@@ -2,37 +2,19 @@
 #define GAME_OF_LIFE_H
 // game_of_life.h
 
-// #include <cstdlib>
-// #include <ctime>
-
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 
-	/* Info & Errors:
-	 * Rozmiary komórek i całej planszy przechowywane są w obiekcie planszy
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
 
 class Cell {
 	
 public:
-	enum States {Alive, Dead};	// stany komórki
+	enum States {Alive, Dead};	// cell states
 		
 private:
-	sf::RectangleShape rectangle;	// rysowany obiekt
-	States state;	// decyzja o tym, czy komórka jest żywa czy martwa
+	sf::RectangleShape rectangle;	// object visible on screen
+	States state;
 	short aliveNeighbours = 0;
 	
 	bool setAlive();
@@ -44,7 +26,7 @@ public:
 	Cell(const sf::Vector2f size_, States state_ = Dead);
 	
 	void setState(States);
-	States getState() const;	// status życia komórki
+	States getState() const;
 
 	void increaseAliveNeighbors(int amount = 1) {aliveNeighbours += amount;}
 	void resetAliveNeighbours(int value = 0) {aliveNeighbours = value;}
@@ -67,8 +49,8 @@ private:
 protected:
 	
 public:
-	Stage(sf::Vector2i = sf::Vector2i(100, 100));	// wszystkie martwe
-	Stage(Cell::States, sf::Vector2i = sf::Vector2i(100, 100)); // wszystkie zgodnie z decyzją
+	Stage(sf::Vector2i = sf::Vector2i(100, 100));	// initialize Stage with all Cells dead
+	Stage(Cell::States, sf::Vector2i = sf::Vector2i(100, 100)); // initialize Stage with all Cells at given state
 	~Stage();
 	
 	bool setCellState(const sf::Vector2i, Cell::States);
@@ -77,12 +59,12 @@ public:
 	
 	Cell::States getCellState(const sf::Vector2i) const;
 	
-	void createRandomLife(int);	// losowo tworzone życie na planszy
+	void createRandomLife(int);	// fills Stage with alive Cells randomly - higher parameter, alive
 	
 	bool checkIfYInside(const int) const;
-	bool checkIfXInside(const int) const;
+	bool checkIfXInside(const int) const;	// checks if x/y coordinate is within stage
 	int getSizeX() const;
-	int getSizeY() const;
+	int getSizeY() const;	// returns size
 
 	void calculateStage(); // count alive neighbours of every cell
 	void applyCalculationsAndDraw(sf::RenderWindow&);	// set state of every cell depending on number of alive neighbours
