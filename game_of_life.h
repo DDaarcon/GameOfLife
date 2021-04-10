@@ -40,8 +40,8 @@ class Stage {
 	
 private:
 	Cell ** cells;
-	const int sideOfCell = 3;	// wymagane do wyliczania wymiarów planszy i umiejscowiania komórek, niestety zastosowane rozwiązanie pozwala jedynie na edytowanie wielkości komórek w kodzie klasy Stage :(
-	const sf::Vector2i sizeOfStage;	// podawane podczas tworzenia obiektu, wymagane przechowywanie tej zmiennej do dalszych operacji (rozmieszczania komórek)
+	const int sideOfCell = 3;
+	const sf::Vector2i sizeOfStage;
 		
 	void setTableDimensions();
 
@@ -54,12 +54,12 @@ public:
 	~Stage();
 	
 	bool setCellState(const sf::Vector2i, Cell::States);
-	bool makeLive(int x, int y);
-	bool makeDead(int x, int y);	// zmiana statusu życia poszczególnych komórek (2 wersy w górę)
+	bool makeAlive(int x, int y);
+	bool makeDead(int x, int y);
 	
 	Cell::States getCellState(const sf::Vector2i) const;
 	
-	void createRandomLife(int);	// fills Stage with alive Cells randomly - higher parameter, alive
+	void createRandomLife(int);	// fills Stage with alive Cells randomly - higher parameter, fewer alive cells
 	
 	bool checkIfYInside(const int) const;
 	bool checkIfXInside(const int) const;	// checks if x/y coordinate is within stage

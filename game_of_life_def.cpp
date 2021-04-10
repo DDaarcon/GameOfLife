@@ -8,7 +8,7 @@ Cell::Cell(States state_) : state(state_) {
 		setDead();
 	
 	const float side = 3;
-	rectangle.setSize(sf::Vector2f(side, side));	// ustawianie wymiarów komórki, podstawowa operacja
+	rectangle.setSize(sf::Vector2f(side, side));	// setting cell size
 }
 Cell::Cell(const sf::Vector2f size_, States state_) : state(state_) {
 	if (state == Alive)
@@ -16,7 +16,7 @@ Cell::Cell(const sf::Vector2f size_, States state_) : state(state_) {
 	if (state == Dead)
 		setDead();
 	
-	rectangle.setSize(size_);	// ustawianie wymiarów komórki, podstawowa operacja
+	rectangle.setSize(size_);	// setting cell size
 }
 
 
@@ -72,9 +72,8 @@ void Cell::draw(sf::RenderWindow& w) const {
 	w.draw(rectangle);
 }
 
-// END Koniec definicji metod z klasy Cell. Klasa Stage
+// END of methods of class Cell. Class Stage below
 
-// martwe
 Stage::Stage(sf::Vector2i size_) : sizeOfStage(size_){
 	cells = new Cell*[size_.x]; //?? "x" czy "y"
 	for (int i = 0; i < size_.x; i++){
@@ -120,7 +119,7 @@ void Stage::createRandomLife(int lifeProbabilityDivider) {
 void Stage::setTableDimensions() {
 	for (int i = 0; i < sizeOfStage.x; i++){
 		for (int j = 0; j < sizeOfStage.y; j++){
-			cells[i][j].setAbsolutePosition(sf::Vector2f(sideOfCell * i, sideOfCell * j));	// rozmieszczanie komórek, możliwe błędy
+			cells[i][j].setAbsolutePosition(sf::Vector2f(sideOfCell * i, sideOfCell * j));
 		}
 	}
 }
@@ -134,16 +133,15 @@ void Stage::draw(sf::RenderWindow& w) const {
 }
 
 bool Stage::setCellState(const sf::Vector2i coord_, Cell::States state_) {
-	// -1 dla wygody, plansza o długości 100 ma komórki od 1 do 100 (nie od 0 do 99)
 	
-	if (coord_.x > 0 && coord_.x <= sizeOfStage.x &&
-		coord_.y > 0 && coord_.y <= sizeOfStage.y){
-		cells[coord_.x - 1][coord_.y - 1].setState(state_);
+	if (coord_.x >= 0 && coord_.x < sizeOfStage.x &&
+		coord_.y >= 0 && coord_.y < sizeOfStage.y){
+		cells[coord_.x][coord_.y].setState(state_);
 		return true;
 	}
 	return false;
 }
-bool Stage::makeLive(int x, int y) {
+bool Stage::makeAlive(int x, int y) {
 	return setCellState(sf::Vector2i(x, y), Cell::States::Alive);
 }
 bool Stage::makeDead(int x, int y) {

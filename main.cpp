@@ -13,11 +13,11 @@ int main(){
 	window.setView(mainView);
 	
 	Stage testStage(Cell::States::Dead, sf::Vector2i(200, 200));
-	// testStage.makeLive(50, 50);
-	// testStage.makeLive(50, 51);
-	// testStage.makeLive(50, 52);
-	// testStage.makeLive(51, 51);
-	// testStage.makeLive(52, 51);
+	// testStage.makeAlive(50, 50);
+	// testStage.makeAlive(50, 51);
+	// testStage.makeAlive(50, 52);
+	// testStage.makeAlive(51, 51);
+	// testStage.makeAlive(52, 51);
 	testStage.createRandomLife(5);
 	
 	while(window.isOpen()){
